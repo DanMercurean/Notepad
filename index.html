@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Notizblock</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="icon" href="img/pin-3-16.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <script src='main.js'></script>
+</head>
+
+<body onload="loadNotes()">
+    <div class="notefield">
+        <div id="showtitel" class="titel d-none">
+            <input type="text" id="titel" placeholder="Titel">
+
+            <img src="img/pin-3-16.png">
+        </div>
+
+        <div class="message" onclick="showNote()">
+            <textarea id="message" type="text" placeholder="Dein Notiz schreiben..."></textarea>
+        </div>
+
+        <div id="showclose" class="close d-none" onclick="addNote(); closeNote(); saveNotes()">
+            <button><b>Schließen<b></button>
+        </div>
+    </div>
+
+    <div id="mynotes" class="mynotes"></div>
+</body>
+
+</html>

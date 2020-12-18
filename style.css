@@ -1,0 +1,91 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    margin-left: 50px;
+    margin-right: 50px;
+    background-image: url(img/wood-board.png);
+    background-position: right;
+}
+
+.notefield {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px #888888;
+    width: 640px;
+    padding: 8px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    flex-direction: column;
+    display: flex;
+}
+
+.titel {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+textarea {
+    border: 0px;
+    font-size: 15px;
+}
+
+.notefield input {
+    border: none;
+    height: 6vh;
+    width: 40vw;
+    line-break: anywhere;
+}
+
+.notefield button {
+    border-radius: 10px;
+    border: none;
+    margin-top: 2px;
+    margin-left: 80px;
+    cursor: pointer;
+    display: flex;
+    align-items: center !important;
+}
+
+.notefield div img {
+    margin-right: 12px;
+    margin-bottom: 16px;
+}
+
+.note {
+    width: 300px;
+    height: 150px;
+    border: 1px solid lightgray;
+    padding: 8px;
+    margin-top: 32px;
+    background-color: rgb(203, 243, 246);
+}
+
+.delete-img {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mynotes {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.close {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+@media (max-width: 800px) {
+    body {
+        justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
