@@ -1,6 +1,22 @@
-let notes = [];
-let titels = [];
+/**
+ * TODO IF(DRAGGABLE ELEMENT MOVES -----> REWRITE 'MYNOTES'.innerHTML TO LOCAL STORAGE)
+ *  //TODO: MAKE A FUNCTION SAVE MY NOTES
+    let myNotes = document.getElementById('mynotes').innerHTML;
+    localStorage.setItem('myNotes', JSON.stringify(myNotes));
+ */
 
+
+/** function return note element */
+function getNewNote(i) {
+    return `<div id="note-${i}" class = "note draggable">
+                <div class = "delete-img"><b>${titels[i]}</b><br><a href="#" onclick='deleteNote(${i})'><img src="img/delete-property-16.png"></a></div>
+                <div>${texts[i]}</div>
+            </div>`;
+}
+
+let texts = [];
+let titels = [];
+let notes = '';
 /**
  * open the input field "titel" 
  */
@@ -22,47 +38,83 @@ function closeNote() {
  */
 
 function addNote() {
-    let text = document.getElementById('message').value;
-    let titel = document.getElementById('titel').value;
-    notes.push(text);
-    titels.push(titel);
+
+
+    let text = document.getElementById('message');
+    let titel = document.getElementById('titel');
+    // let myNotes = document.getElementById('mynotes');
+    // console.log("Notitele: ", myNotes.innerHTML);
+
+    // notes = document.getElementsByClassName("note");
+    // console.log("Notize: ",notes);
+
+    // let text = document.getElementById('message').value;
+    // let titel = document.getElementById('titel').value;
+    texts.push(text.value);
+    titels.push(titel.value);
+
+
 
     updateHTML();
 
-    document.getElementById('message').value = '';
-    document.getElementById('titel').value = '';
+    text.value = '';
+    titel.value = '';
+    // document.getElementById('message').value = '';
+    // document.getElementById('titel').value = '';
     saveNotes();
 }
 
 function updateHTML() {
     let mynotes = document.getElementById('mynotes');
-    mynotes.innerHTML = '';
-    for (let i = 0; i < notes.length; i++) {
-        mynotes.innerHTML += `
-        <div class = "note draggable">
+    //mynotes.innerHTML = '';
+    for (let i = 0; i < texts.length; i++) {
+        if (document.getElementById('note-' + i)) {
+            console.log("ELEMENT EXISTS ALREADY");
+             continue;
+        }else{
+            console.log("ELEMENT DOES NOT EXISTS ALREADY");
+              mynotes.innerHTML += `<div id="note-${i}" class = "note draggable">
             <div class = "delete-img"><b>${titels[i]}</b><br><a href="#" onclick='deleteNote(${i})'><img src="img/delete-property-16.png"></a></div>
-            <div>${notes[i]}</div>
+            <div>${texts[i]}</div>
         </div>`;
+        }
     }
 }
 
 
 function loadNotes() {
-    notes = getArray('notes');
+    texts = getArray('texts');
+    console.log("Texts: ", texts);
     titels = getArray('titels');
-    updateHTML();
+    console.log("Titels: ", titels);
+
+    document.getElementById('mynotes').innerHTML = hasLocalStorage('myNotes') ? JSON.parse(localStorage.getItem('myNotes')) : '';
+    console.log("My Notes: ", document.getElementById('mynotes').innerHTML);
+    //updateHTML();
 }
 
 function deleteNote(position) {
     titels.splice(position, 1);
-    notes.splice(position, 1);
-    updateHTML();
+    texts.splice(position, 1);
+
+    document.getElementById('note-' + position).remove();
+
+    //TODO: MAKE A FUNCTION SAVE MY NOTES
+    let myNotes = document.getElementById('mynotes').innerHTML;
+    localStorage.setItem('myNotes', JSON.stringify(myNotes));
+
+    //notes.splice(position, 1);
+    //updateHTML();
     saveNotes();
 }
 
 function saveNotes() {
     setArray('titels', titels);
-    setArray('notes', notes);
+    setArray('texts', texts);
+
+    //TODO MAKE A FUNCTION SAVE MYNOTES
+    let myNotes = document.getElementById('mynotes').innerHTML;
+    localStorage.setItem('myNotes', JSON.stringify(myNotes));
 }
 
 function setArray(key, array) {
@@ -70,7 +122,12 @@ function setArray(key, array) {
 }
 
 function getArray(key) {
-    return JSON.parse(localStorage.getItem(key));
+    return hasLocalStorage(key) ? JSON.parse(localStorage.getItem(key)) : [];
+    // return JSON.parse(localStorage.getItem(key));
+}
+
+function hasLocalStorage(key) {
+    return !(localStorage.getItem(key) === null);
 }
 
 
@@ -248,4 +305,4 @@ document.addEventListener("DOMContentLoaded", function () {
             subtree: true
         });
 }, false); // DOMContentLoaded
-// Ende drag_n_drop 
+// Ende drag_n_drop
